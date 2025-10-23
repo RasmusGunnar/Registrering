@@ -1,0 +1,56 @@
+{
+  "branding": {
+    "logo": ""
+  },
+  "employees": [
+    {
+      "id": "amalie-korvig",
+      "name": "Amalie Korvig",
+      "department": "Administration",
+      "role": "Receptionist",
+      "photo": "",
+      "isCheckedIn": true
+    },
+    {
+      "id": "jonas-lindholm",
+      "name": "Jonas Lindholm",
+      "department": "Administration",
+      "role": "HR-partner",
+      "photo": "",
+      "isCheckedIn": false
+    },
+    {
+      "id": "freja-holm",
+      "name": "Freja Holm",
+      "department": "Design",
+      "role": "Lead Designer",
+      "photo": "",
+      "isCheckedIn": true
+    },
+    {
+      "id": "mathias-hagen",
+      "name": "Mathias Hagen",
+      "department": "Design",
+      "role": "UX Designer",
+      "photo": "",
+      "isCheckedIn": false
+    },
+    {
+      "id": "henrik-nord",
+      "name": "Henrik Nord",
+      "department": "Salg",
+      "role": "Salgschef",
+      "photo": "",
+      "isCheckedIn": true
+    },
+    {
+      "id": "sofie-iversen",
+      "name": "Sofie Iversen",
+      "department": "Salg",
+      "role": "Account Manager",
+      "photo": "",
+      "isCheckedIn": false
+    }
+  ],
+  "absences": []
+}

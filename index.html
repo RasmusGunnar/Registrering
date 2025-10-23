@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webkiosk</title>
+  <title>Velkommen · Registrering</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="app" id="appRoot">
+  <div class="screen screen--slides" id="slidesScreen">
+    <div class="slides-stage" aria-live="polite">
+      <div class="slides-brand" id="slidesBrand" aria-hidden="true">
+        <img id="slidesLogo" src="" alt="Virksomhedslogo" hidden>
+      </div>
+      <article id="fullScreenSlide" class="slide slide--full"></article>
+    </div>
+    <div class="slides-overlay" role="presentation">
+      <div class="slides-overlay-content">
+        <div class="overlay-meta" aria-live="polite">
+          <p id="slidesClockTime" class="clock-time">00:00</p>
+          <p id="slidesClockDate" class="clock-date">Mandag, 1. januar 1970</p>
+        </div>
+        <div class="overlay-actions">
+          <p class="overlay-instruction">Tryk for at åbne medarbejderoversigten.</p>
+          <button id="openBoard" class="primary-btn" type="button">Se medarbejdere</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen screen--board" id="boardScreen" hidden>
+    <header class="header">
+      <h1>Webkiosk</h1>
+    </header>
+    <main class="dashboard" aria-labelledby="dashboardTitle">
+      <h2 id="dashboardTitle" class="sr-only">Startdashboard</h2>
+      <section class="widget weather" aria-labelledby="weatherTitle">
+        <div class="widget-header">
+          <h3 id="weatherTitle">Vejr</h3>
+      <div class="brand">
+        <img id="boardLogo" class="brand-logo" src="" alt="Virksomhedslogo" hidden>
+        <div class="brand-copy">
+          <h1>Velkommen til Nordlys Kontorhus</h1>
+          <p class="brand-subtitle">Ind- og udtjekning · Info til gæster &amp; medarbejdere</p>
+        </div>
+        <div class="weather-body">
+          <div class="weather-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img" aria-label="sol"><circle cx="32" cy="32" r="16"></circle><line x1="32" y1="2" x2="32" y2="14"></line><line x1="32" y1="50" x2="32" y2="62"></line><line x1="2" y1="32" x2="14" y2="32"></line><line x1="50" y1="32" x2="62" y2="32"></line><line x1="10" y1="10" x2="18" y2="18"></line><line x1="46" y1="46" x2="54" y2="54"></line><line x1="10" y1="54" x2="18" y2="46"></line><line x1="46" y1="18" x2="54" y2="10"></line></svg>
+          </div>
+          <div class="weather-info">
+            <p class="weather-temp" aria-label="Temperatur">21°</p>
+            <p class="weather-status">Klart · Farum</p>
+          </div>
+      </div>
+      <div class="header-meta">
+        <div class="clock" aria-live="polite">
+          <p id="boardClockTime" class="clock-time">00:00</p>
+          <p id="boardClockDate" class="clock-date">Mandag, 1. januar 1970</p>
+        </div>
+      </section>
+      <section class="widget clock" aria-labelledby="clockTitle">
+        <div class="widget-header">
+          <h3 id="clockTitle">Ur</h3>
+        <div class="header-actions">
+          <button id="closeBoard" class="ghost-btn" type="button">Tilbage til infovisning</button>
+          <button id="openAdmin" class="ghost-btn" type="button" aria-haspopup="dialog">Administrer</button>
+        </div>
+        <div class="clock-body">
+          <p id="clockTime" class="clock-time" aria-live="polite">00:00</p>
+          <p id="clockDate" class="clock-date">Mandag 1. januar 1970</p>
+      </div>
+    </header>
+
+    <main class="layout" aria-label="Dashboard for ind- og udtjekning">
+      <section class="panel info-panel" aria-labelledby="infoTitle">
+        <div class="panel-header">
+          <h2 id="infoTitle">Nyheder &amp; opslag</h2>
+          <div id="slideIndicators" class="slide-indicators" role="tablist" aria-label="Informationsslides"></div>
+        </div>
+        <article id="infoSlide" class="slide" aria-live="polite"></article>
+      </section>
+      <section class="tiles" aria-label="Handlinger">
+        <button id="openCalendar" class="tile" type="button" aria-label="Åbn kalenderen" title="Åbn familiekalenderen">
+          <span class="tile-label">Kalender · Familieoversigt</span>
+          <span class="tile-icon" aria-hidden="true">📅</span>
+        </button>
+        <button id="openSonos" class="tile" type="button" aria-label="Åbn SONOS" title="Åbn SONOS appen">
+          <span class="tile-label">SONOS · Åbn app</span>
+          <span class="tile-icon" aria-hidden="true">🎵</span>
+        </button>
+        <button id="openHome" class="tile" type="button" aria-label="Åbn Homey" title="Homey placeholder">
+          <span class="tile-label">Hjem · Homey</span>
+          <span class="tile-icon" aria-hidden="true">🏠</span>
+        </button>
+
+      <section class="panel staff-panel" aria-labelledby="staffTitle">
+        <div class="panel-header">
+          <h2 id="staffTitle">Hvem er i bygningen?</h2>
+        </div>
+        <p class="panel-description">Klik på en medarbejder for at registrere ind- eller udtjekning. Fravær vises automatisk.</p>
+        <div id="departmentList" class="department-list" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="calendarOverlay" class="calendar-overlay" role="dialog" aria-modal="true" aria-labelledby="calendarTitle" aria-describedby="calendarHelp" hidden>
+    <p id="calendarHelp" class="sr-only">Kalendervisningen åbnes som overlay. Brug Tilbage-knappen for at lukke.</p>
+    <div class="calendar-backdrop"></div>
+    <div class="calendar-container">
+      <header class="calendar-header">
+        <button id="backBtn" type="button" class="back-btn" aria-label="Luk kalenderen">← Tilbage</button>
+        <h2 id="calendarTitle">Familiekalender</h2>
+  <div id="adminOverlay" class="overlay" hidden>
+    <div class="overlay-backdrop" data-close-overlay></div>
+    <div class="overlay-dialog" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+      <header class="overlay-header">
+        <h2 id="adminTitle">Administration</h2>
+        <div class="overlay-header-actions">
+          <button type="button" class="ghost-btn" id="logoutBtn">Log ud</button>
+          <button type="button" class="ghost-btn" id="closeAdmin">Luk</button>
+        </div>
+      </header>
+      <section class="calendar-panel">
+        <iframe id="calFrame" title="Familieoversigt" loading="lazy"></iframe>
+      </section>
+      <div class="overlay-content">
+        <section class="form-section" aria-labelledby="brandingTitle">
+          <h3 id="brandingTitle">Branding</h3>
+          <div class="branding-controls">
+            <div class="branding-preview" id="logoPreview" aria-live="polite" aria-label="Forhåndsvisning af logo"></div>
+            <div class="branding-actions">
+              <label class="upload-btn" for="logoUpload">Upload logo
+                <input id="logoUpload" type="file" accept="image/*">
+              </label>
+              <button type="button" id="removeLogo" class="ghost-btn">Fjern logo</button>
+              <p class="help-text">Understøtter PNG, JPG og SVG. Anbefalet format er kvadratisk.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="employeeFormTitle">
+          <h3 id="employeeFormTitle">Medarbejdere</h3>
+          <form id="employeeForm" class="form" autocomplete="off">
+            <label class="full" for="employeeSelect">Vælg medarbejder</label>
+            <select id="employeeSelect" class="full"></select>
+
+            <div class="form-grid">
+              <label for="employeeName">Navn
+                <input id="employeeName" name="name" type="text" required>
+              </label>
+              <label for="employeeDepartment">Afdeling
+                <input id="employeeDepartment" name="department" type="text" placeholder="F.eks. Administration" required>
+              </label>
+              <label for="employeeRole">Stilling
+                <input id="employeeRole" name="role" type="text" placeholder="F.eks. Receptionist" required>
+              </label>
+            </div>
+            <div class="photo-field" aria-live="polite">
+              <div id="employeePhotoPreview" class="photo-preview" aria-hidden="true"></div>
+              <div class="photo-actions">
+                <label class="upload-btn" for="employeePhoto">Upload billede
+                  <input id="employeePhoto" name="photo" type="file" accept="image/*">
+                </label>
+                <button type="button" id="removeEmployeePhoto" class="ghost-btn">Fjern billede</button>
+                <p class="help-text">Understøtter PNG, JPG og SVG (maks. 10&nbsp;MB).</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" id="deleteEmployee" class="ghost-btn danger">Slet</button>
+              <button type="submit" class="primary-btn">Gem</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="form-section" aria-labelledby="absenceFormTitle">
+          <h3 id="absenceFormTitle">Fravær</h3>
+          <form id="absenceForm" class="form" autocomplete="off">
+            <label class="full" for="absenceEmployee">Medarbejder</label>
+            <select id="absenceEmployee" class="full" required></select>
+            <div class="form-grid">
+              <label for="absenceFrom">Fra dato
+                <input id="absenceFrom" name="from" type="date" required>
+              </label>
+              <label for="absenceTo">Til dato
+                <input id="absenceTo" name="to" type="date" required>
+              </label>
+              <label for="absenceReason">Årsag
+                <select id="absenceReason" name="reason" required>
+                  <option value="sick">Sygdom</option>
+                  <option value="parental">Barsel</option>
+                  <option value="vacation">Ferie</option>
+                  <option value="remote">Hjemmearbejde</option>
+                  <option value="other">Andet</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Registrér fravær</button>
+            </div>
+          </form>
+          <ul id="absenceList" class="absence-list" aria-live="polite"></ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="loginOverlay" class="overlay" hidden>
+    <div class="overlay-backdrop" data-close-overlay></div>
+    <div class="overlay-dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <header class="overlay-header">
+        <h2 id="loginTitle">Log ind</h2>
+        <button type="button" class="ghost-btn" id="closeLogin">Luk</button>
+      </header>
+      <form id="loginForm" class="overlay-content form" autocomplete="off">
+        <label for="loginUsername">Brugernavn
+          <input id="loginUsername" name="username" type="text" autocomplete="username" required>
+        </label>
+        <label for="loginPassword">Adgangskode
+          <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="help-text">Kun for afdelingsledere.</p>
+        <p id="loginError" class="form-error" role="alert" hidden>Ugyldigt brugernavn eller adgangskode.</p>
+        <div class="form-actions">
+          <button type="submit" class="primary-btn">Log ind</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
+</html>
